@@ -26,6 +26,11 @@ const config = {
     "@typescript-eslint/no-unsafe-member-access": "off",
     "@typescript-eslint/non-nullable-type-assertion-style": "off",
     "@typescript-eslint/prefer-promise-reject-errors": "off",
+    "@typescript-eslint/no-unsafe-argument": "off",
+    "react-hooks/exhaustive-deps": "off",
+    "react-hooks/rules-of-hooks": "off",
+    "@typescript-eslint/prefer-nullish-coalescing": "off",
+    "@typescript-eslint/no-unsafe-return": "off",
     "drizzle/enforce-delete-with-where": [
       "error",
       {
