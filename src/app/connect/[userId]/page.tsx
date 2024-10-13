@@ -1,6 +1,4 @@
-import { connectDevice } from "~/actions/whatsapp";
-import Image from "next/image";
-
+import { QRCode } from "./qr-code";
 import { StatusButton } from "./status-button";
 
 export default async function ConnectPage({
@@ -9,7 +7,6 @@ export default async function ConnectPage({
   params: { userId: string };
 }) {
   const { userId } = params;
-  const base64QRCode = await connectDevice({ userId });
 
   return (
     <div className="flex h-screen flex-col items-center justify-center gap-y-10">
@@ -22,20 +19,7 @@ export default async function ConnectPage({
         </h1>
       </div>
 
-      {base64QRCode ? (
-        <div className="flex items-center justify-center rounded-xl border border-primary p-8">
-          <div className="flex items-center justify-center rounded-lg bg-white p-4">
-            <Image
-              src={base64QRCode}
-              alt="WhatsApp Login QR Code"
-              width={256}
-              height={256}
-            />
-          </div>
-        </div>
-      ) : (
-        <p>Failed to generate QR code. Please try again.</p>
-      )}
+      <QRCode userId={userId} />
 
       <StatusButton userId={userId} />
     </div>
