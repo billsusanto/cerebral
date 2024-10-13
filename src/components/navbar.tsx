@@ -7,7 +7,7 @@ import { Button } from "./ui/button";
 
 export function Navbar() {
   return (
-    <div className="flex w-5/6 items-center justify-between p-6 pt-10 pb-8">
+    <div className="flex w-5/6 items-center justify-between pt-10 pb-8">
       <div className="flex items-center gap-x-4">
         <Link
           className="cursor-pointer transition-all hover:opacity-80"
@@ -16,7 +16,7 @@ export function Navbar() {
         >
           <Image src={github} alt="GitHub" width={50} height={50} />
         </Link>
-        <h1 className="text-2xl font-bold text-[#f6f930]">Project Name</h1>
+        <h1 className="text-4xl font-bold text-[#f6f930]">Ind<span className="text-[#ffffff]">order</span>.</h1>
       </div>
 
       <div className="flex items-center gap-x-16">

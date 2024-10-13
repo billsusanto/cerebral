@@ -1,15 +1,10 @@
+import { getAllReceipts } from "~/actions/receipts";
 import React from "react";
 
-import Analytics from "./analytics";
-import Orders from "./orders";
+import DashboardClient from "./dashboardClient";
 
-const DashboardPage: React.FC = () => {
-  return (
-    <div className="w-5/6 flex flex-row gap-x-12 pt-10">
-      <Orders />
-      <Analytics />
-    </div>
-  );
-};
+export default async function DashboardPage() {
+  const receipts = await getAllReceipts();
 
-export default DashboardPage;
+  return <DashboardClient receipts={receipts} />;
+}

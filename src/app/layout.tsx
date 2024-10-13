@@ -22,7 +22,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en" className={outfit.className}>
         <Toaster position="top-center" />
-        <body className="flex min-h-screen w-full flex-col items-center bg-[#2F2F2F]">
+        <body className="flex max-h-screen w-full flex-col items-center bg-[#2F2F2F]">
           <Navbar />
           {children}
           <Footer />
