@@ -1,7 +1,6 @@
 import "~/styles/globals.css";
 
 import { ClerkProvider } from "@clerk/nextjs";
-import { Footer } from "~/components/footer";
 import { Navbar } from "~/components/navbar";
 import { type Metadata } from "next";
 import { Toaster } from "sonner";
@@ -23,9 +22,7 @@ export default function RootLayout({
       <html lang="en" className={outfit.className}>
         <Toaster position="top-center" />
         <body className="flex max-h-screen w-full flex-col items-center bg-[#2F2F2F]">
-          <Navbar />
           {children}
-          <Footer />
         </body>
       </html>
     </ClerkProvider>

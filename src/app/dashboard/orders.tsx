@@ -18,18 +18,18 @@ const Orders: React.FC<OrdersProps> = ({ receipts, onOrderSelect }) => {
   });
 
   return (
-    <div className="min-w-[60%] rounded-2xl border-2 border-[#717171] bg-[#2f2f2f] p-3 text-white shadow-xl">
-      <h2 className="flex items-center p-10 pb-12 text-[48px] font-semibold">
+    <div className="rounded-2xl border-2 border-[#575757] bg-[#2f2f2f] p-3 text-white shadow-xl">
+      <h2 className="flex items-center p-3 sm:p-6 md:p-6 lg:p-10 pb-2 sm:pb-6lg:pb-12 text-2xl sm:text-[24px] lg:text-[48px] font-semibold">
         Orders
-        <span className="ml-5 inline-flex items-center rounded-3xl bg-[#f6f930] px-3 py-2 text-[20px] font-semibold text-black">
+        <span className="ml-4 sm:ml-3 lg:ml-5 inline-flex items-center rounded-3xl bg-[#f6f930] px-2 py-1 sm:px-2 sm:py-2 lg:px-3 lg:py-2 text-xl sm:text-[18px]lg:text-[20px] font-semibold text-black">
           {receipts.length}
         </span>
       </h2>
-      <div className="max-h-[720px] overflow-auto">
+      <div className="overflow-auto">
         <table className="w-full table-auto">
           <thead>
-            <tr className="relative text-[24px]">
-              <th className="sticky top-0 bg-[#2f2f2f] pl-10 text-left font-medium">
+            <tr className="relative text-lg sm:text-[16px] lg:text-[24px]">
+              <th className="sticky top-0 bg-[#2f2f2f] pl-3 sm:pl-6 lg:pl-10 text-left font-medium">
                 Order#
               </th>
               <th className="sticky top-0 bg-[#2f2f2f] text-left font-medium">
@@ -38,7 +38,7 @@ const Orders: React.FC<OrdersProps> = ({ receipts, onOrderSelect }) => {
               <th className="sticky top-0 bg-[#2f2f2f] text-left font-medium">
                 Name
               </th>
-              <th className="sticky top-0 bg-[#2f2f2f] py-5 text-left font-medium">
+              <th className="sticky top-0 bg-[#2f2f2f] py-2 sm:py-3 lg:py-5 text-left font-medium">
                 Status
               </th>
             </tr>
@@ -47,17 +47,17 @@ const Orders: React.FC<OrdersProps> = ({ receipts, onOrderSelect }) => {
             {displayReceipts.map((order, index) => (
               <tr
                 key={order.id !== -1 ? order.id : `empty-${index}`}
-                className={`overflow-hidden text-xl ${order.id !== -1 ? 'cursor-pointer hover:bg-[#5a5a5a]' : ''}`}
+                className={`overflow-hidden text-sm sm:text-[14px] md:text-[14px] lg:text-[24px] ${order.id !== -1 ? 'cursor-pointer hover:bg-[#5a5a5a]' : ''}`}
                 onClick={() => order.id !== -1 && onOrderSelect(order.id)}
               >
-                <td className="py-8 pl-10 text-left text-[#f6f930]">
+                <td className="py-[1rem] lg:py-7 pl-3 sm:pl-6 lg:pl-10 text-left text-[#f6f930]">
                   {order.id !== -1 ? order.id : '---'}
                 </td>
-                <td className="py-8 text-left text-[#c4c4c4]">
+                <td className="py-[1rem] lg:py-7 text-left text-[#c4c4c4]">
                   {order.id !== -1 ? order.purchase_date.toLocaleDateString() : '---'}
                 </td>
-                <td className="py-8 text-left font-extralight">{order.buyer}</td>
-                <td className="py-8 text-left">{order.status}</td>
+                <td className="py-[1rem] text-left font-extralight">{order.buyer}</td>
+                <td className="py-[1rem] text-left font-extralight md:font-normal">{order.status}</td>
               </tr>
             ))}
           </tbody>

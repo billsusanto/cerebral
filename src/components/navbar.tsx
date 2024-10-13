@@ -7,29 +7,29 @@ import { Button } from "./ui/button";
 
 export function Navbar() {
   return (
-    <div className="flex w-5/6 items-center justify-between pt-10 pb-8">
-      <div className="flex items-center gap-x-4">
-        <Link
+    <div className="flex w-full items-center justify-between pt-6 sm:pt-8 lg:pt-10 pb-2 xs:pb-4 lg:pb-8 px-[1rem] sm:px-[2rem] lg:px-[8rem]">
+      <div className="flex items-center gap-x-16">
+        {/* <Link
           className="cursor-pointer transition-all hover:opacity-80"
           href="https://github.com/scottsus/cerebral"
           target="_blank"
         >
           <Image src={github} alt="GitHub" width={50} height={50} />
-        </Link>
-        <h1 className="text-4xl font-bold text-[#f6f930]">Ind<span className="text-[#ffffff]">order</span>.</h1>
+        </Link> */}
+        <Link href="/" className="text-2xl lg:text-4xl font-bold text-[#f6f930]">Ind<span className="text-[#ffffff]">order</span>.</Link>
+        <Link href="/dashboard" className="text-sm lg:text-xl text-[#f6f930] font-semibold">Dashboard</Link>
+        <Link href="/settings" className="text-sm lg:text-xl text-white font-semibold">Settings</Link>
       </div>
 
-      <div className="flex items-center gap-x-16">
-        <Link href="/dashboard" className="text-xl text-white font-semibold">Dashboard</Link>
-        <Link href="/contact" className="text-xl text-white font-semibold">Contact Us</Link>
-        <SignedOut>
+      <div className="flex">
+        {/* <SignedOut>
           <SignInButton>
             <Button variant="custom" size="custom">Sign In</Button>
           </SignInButton>
         </SignedOut>
         <SignedIn>
           <UserButton />
-        </SignedIn>
+        </SignedIn> */}
       </div>
     </div>
   );

@@ -20,11 +20,15 @@ export default function DashboardClient({ receipts }: { receipts: Receipt[] }) {
   );
 
   return (
-    <div className="flex w-5/6 flex-row gap-x-12 pt-10">
-      <Orders receipts={receipts} onOrderSelect={setSelectedOrderId} />
-      <div className="flex w-[40%] flex-col gap-y-12">
-        <OrderInfo receipts={receipts} orderId={selectedOrderId} />
-        <Analytics />
+    <div className="flex w-full flex-col md:flex-row gap-y-6 md:gap-x-3 lg:gap-x-6 xl:gap-x-12 pt-6 sm:pt-8 lg:pt-10 px-4 sm:px-8 lg:px-16 xl:px-32">
+      <div className="w-full">
+        <Orders receipts={receipts} onOrderSelect={setSelectedOrderId} />
+      </div>
+      <div className="flex w-full lg:w-[60%] flex-col gap-y-2">
+        <div className="hidden md:block lg:block">
+          <OrderInfo receipts={receipts} orderId={selectedOrderId} />
+        </div>
+        <Analytics receipts={receipts} />
       </div>
     </div>
   );

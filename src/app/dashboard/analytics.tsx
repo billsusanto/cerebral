@@ -3,158 +3,21 @@
 import React, { useState, useEffect } from 'react';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, ChartData } from 'chart.js';
+import { receipts } from '~/server/db/schema';
+import { InferSelectModel } from 'drizzle-orm';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
+type Receipt = InferSelectModel<typeof receipts>;
 
-const Analytics = () => { 
+const Analytics = ({ receipts }: { receipts: Receipt[] }) => { 
   const [activeTab, setActiveTab] = useState('Orders');
   const [chartData, setChartData] = useState<ChartData<'pie'> | null>(null);
 
-  const orderData = [
-    {
-      orderNumber: "#1234",
-      date: "10/12/2024",
-      name: "Abraham Lincoln",
-      status: "In-Progress",
-    },
-    {
-      orderNumber: "#8765",
-      date: "10/12/2024",
-      name: "Emma Thompson",
-      status: "In-Progress",
-    },
-    {
-      orderNumber: "#9876",
-      date: "10/12/2024",
-      name: "Michael Chen",
-      status: "Completed",
-    },
-    {
-      orderNumber: "#2345",
-      date: "10/12/2024",
-      name: "Sophia Rodriguez",
-      status: "In-Progress",
-    },
-    {
-      orderNumber: "#3456",
-      date: "10/12/2024",
-      name: "William Patel",
-      status: "Completed",
-    },
-    {
-      orderNumber: "#4567",
-      date: "10/12/2024",
-      name: "Olivia Nguyen",
-      status: "Completed",
-    },
-    {
-      orderNumber: "#5678",
-      date: "10/12/2024",
-      name: "Ethan Kowalski",
-      status: "In-Progress",
-    },
-    {
-      orderNumber: "#6789",
-      date: "10/12/2024",
-      name: "Ava Tanaka",
-      status: "In-Progress",
-    },
-    {
-      orderNumber: "#7890",
-      date: "10/12/2024",
-      name: "Noah Garcia",
-      status: "Completed",
-    },
-    {
-      orderNumber: "#8901",
-      date: "10/12/2024",
-      name: "Isabella Kim",
-      status: "In-Progress",
-    },
-    {
-      orderNumber: "#9012",
-      date: "10/12/2024",
-      name: "Liam O'Connor",
-      status: "In-Progress",
-    },
-    {
-      orderNumber: "#0123",
-      date: "11/12/2024",
-      name: "Zoe Mbatha",
-      status: "In-Progress",
-    },
-    {
-      orderNumber: "#2345",
-      date: "11/12/2024",
-      name: "Yuki Tanaka",
-      status: "Completed",
-    },
-    {
-      orderNumber: "#3456",
-      date: "11/12/2024",
-      name: "Ava Tanaka",
-      status: "Completed",
-    },
-    {
-      orderNumber: "#4567",
-      date: "11/12/2024",
-      name: "Ethan Kowalski",
-      status: "In-Progress",
-    },
-    {
-      orderNumber: "#5678",
-      date: "12/12/2024",
-      name: "Olivia Nguyen",
-      status: "Completed",
-    },
-    {
-      orderNumber: "#6789",
-      date: "12/12/2024",
-      name: "William Patel",
-      status: "In-Progress",
-    },
-    {
-      orderNumber: "#7890",
-      date: "12/12/2024",
-      name: "Sophia Rodriguez",
-      status: "Completed",
-    },
-    {
-      orderNumber: "#8901",
-      date: "12/12/2024",
-      name: "Michael Chen",
-      status: "Completed",
-    },
-    {
-      orderNumber: "#9012",
-      date: "12/12/2024",
-      name: "Emma Thompson",
-      status: "In-Progress",
-    },
-    {
-      orderNumber: "#0123",
-      date: "13/12/2024",
-      name: "Abraham Lincoln",
-      status: "Completed",
-    },
-    {
-      orderNumber: "#2345",
-      date: "13/12/2024",
-      name: "Liam O'Connor",
-      status: "Cancelled",
-    },
-    {
-      orderNumber: "#3456",
-      date: "13/12/2024",
-      name: "Yuki Tanaka",
-      status: "In-Progress",
-    },
-  ];
-  
   useEffect(() => {
     if (activeTab === 'Completion') {
-      const statusCounts = orderData.reduce<Record<string, number>>((acc, order) => {
-        acc[order.status] = (acc[order.status] || 0) + 1;
+      const statusCounts = receipts.reduce<Record<string, number>>((acc, receipt) => {
+        const status = receipt.status ?? 'Unknown';
+        acc[status] = (acc[status] || 0) + 1;
         return acc;
       }, {});
 
@@ -185,11 +48,11 @@ const Analytics = () => {
   };
 
   return (
-    <div className="container max-w-[750px] h-[500px] text-white border border-[#c4c4c4] rounded-2xl">
-      <div className="flex justify-between items-center p-5 pb-12 text-[48px] font-semibold">
-        <h2 className="text-[42px] font-semibold">Analytics</h2>
+    <div className="container h-[100px] lg:h-[300px] text-white border-[#c4c4c4] rounded-2xl">
+      <div className="flex justify-between items-center px-3 py-3 sm:px-3 sm:py-3 md:px-3 md:py-3 lg:px-5 lg:py-3 font-semibold">
+        <h2 className="text-[1.2rem] font-semibold sm:text-[1.2rem] md:text-[1.3rem] lg:text-[1.8rem]">Analytics</h2>
         
-        <div className="flex space-x-8 text-[24px] font-medium">
+        <div className="flex lg:space-x-4 text-[0.8rem] font-medium sm:text-[0.8rem] md:text-[1.0rem] lg:text-[1.3rem]">
           <button 
             className={`pr-7 cursor-pointer ${activeTab === 'Orders' ? 'text-[#e3e300] underline' : 'text-white hover:underline'}`} 
             onClick={() => setActiveTab('Orders')}
@@ -207,39 +70,39 @@ const Analytics = () => {
       
       {activeTab === 'Orders' ? (
 
-        <div className="grid grid-cols-2 gap-4 p-4">
-          <div className="col-span-1 bg-[#484848] rounded-lg p-4 hover:border-[#FFFFFF] hover:border">
-            <div className="flex items-center mb-2 ">
-              <span className="text-white text-2xl mr-2">$</span>
-              <span className="text-[#e3e300] text-4xl font-bold">23822.19</span>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="col-span-1 bg-[#484848] h-[100px] lg:h-[150px] rounded-lg p-4 hover:border-[#FFFFFF] hover:border text-center flex flex-col justify-center">
+            <div className="flex items-center justify-center mb-2">
+              <span className="text-white lg:text-2xl pr-2">$</span>
+              <span className="text-[#e3e300] lg:text-3xl font-semibold">23822.19</span>
             </div>
-            <div className="text-gray-400 text-xl">Total Revenue</div>
+            <div className="text-gray-400 lg:text-xl">Total Revenue</div>
           </div>
-          <div className="col-span-1 bg-[#484848] rounded-lg p-4 hover:border-[#FFFFFF] hover:border">
-            <div className="flex items-center mb-2">
-              <span className="text-white text-2xl mr-2">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="col-span-1 bg-[#484848] rounded-lg p-4 hover:border-[#FFFFFF] hover:border flex flex-col justify-center h-[100px] lg:h-[150px]">
+            <div className="flex items-center justify-center mb-2">
+              <span className="text-white mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 lg:h-9 lg:w-9" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
               </span>
-              <span className="text-[#e3e300] text-4xl font-bold">182</span>
+              <span className="text-[#e3e300] text-2xl lg:text-4xl font-semibold">{receipts.length}</span>
             </div>
-            <div className="text-gray-400 text-xl">Total Orders</div>
+            <div className="text-gray-400 text-sm sm:text-lg lg:text-xl text-center">Total Orders</div>
           </div>
-          <div className="col-span-2 bg-[#484848] rounded-lg p-4 hover:border-[#FFFFFF] hover:border">
+          <div className="col-span-2 bg-[#484848] rounded-lg lg:p-5 hover:border-[#FFFFFF] hover:border">
             <div className="flex items-center justify-between">
-              <span className="text-gray-400 text-xl">Sales Growth:</span>
+              <span className="text-gray-400 text-sm pl-1 lg:text-xl">Sales Growth:</span>
               <div>
-                <span className="text-[#e3e300] text-4xl font-bold">+9.8%</span>
+                <span className="text-[#e3e300] text-lg sm:text-2xl lg:text-3xl font-semibold">+9.8%</span>
                 <span className="text-green-500 ml-2">↗️</span>
-                <span className="text-gray-400 text-xl ml-2">(Sep-Oct)</span>
+                <span className="text-gray-400 text-sm pr-1 lg:text-xl ml-2">(Sep-Oct)</span>
               </div>
             </div>
           </div>
         </div>
 
       ) : (
-        <div className="w-full h-[300px] flex justify-center items-center">
+        <div className="w-full h-[250px] flex justify-center items-center">
           {chartData ? (
             <Pie data={chartData} options={chartOptions} />
           ) : (
