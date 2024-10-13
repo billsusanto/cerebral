@@ -31,8 +31,8 @@ const Analytics = ({ receipts }: { receipts: Receipt[] }) => {
         datasets: [
           {
             data: Object.values(statusCounts),
-            backgroundColor: ['#FBFF8E', '#94FF8E','#FF8E8E'],
-            hoverBackgroundColor: ['#FBFF8E', '#94FF8E','#FF8E8E'],
+            backgroundColor: ['#6d6d6d','#FBFF8E', '#94FF8E','#FF8E8E'],
+            hoverBackgroundColor: ['#6d6d6d','#FBFF8E', '#94FF8E','#FF8E8E'],
           },
         ],
       });
