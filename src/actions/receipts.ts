@@ -4,10 +4,10 @@ import { db } from "~/server/db";
 import { receipts } from "~/server/db/schema";
 import { eq } from "drizzle-orm";
 
-// Fetch all receipts
-export async function getAllReceipts() {
+// Fetch all receipts by email
+export async function getAllReceiptsByUserId(userId: string) {
   try {
-    return await db.select().from(receipts);
+    return await db.select().from(receipts).where(eq(receipts.userId, userId));
   } catch (error) {
     console.error("Error fetching all receipts:", error);
     throw error;
