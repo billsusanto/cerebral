@@ -25,21 +25,25 @@ export default function Orders({
 
   return (
     <div className="rounded-2xl border-2 border-[#575757] bg-[#2f2f2f] p-3 text-white shadow-xl">
-      <h2 className="sm:text-md flex items-center p-2 pb-2 text-base font-semibold sm:p-6 sm:pb-6 md:p-6 md:text-3xl lg:p-8 lg:pb-10 lg:text-5xl">
+      <h2
+        className={`flex items-center p-2 pb-2 text-xs font-semibold sm:p-6 sm:pb-6 md:p-6 md:text-3xl lg:p-8 lg:pb-10 lg:text-5xl`}
+      >
         Orders
-        <span className="ml-4 inline-flex items-center rounded-xl bg-[#f6f930] px-3 py-1 text-xl font-semibold text-black sm:ml-3 sm:px-3 sm:py-2 sm:text-[18px] lg:ml-5 lg:px-4 lg:py-2 lg:text-[20px]">
+        <span
+          className={`ml-4 inline-flex items-center rounded-xl bg-[#f6f930] px-3 py-1 text-xs font-bold text-black sm:ml-3 sm:px-3 sm:py-2 md:text-lg lg:ml-5 lg:px-4 lg:py-2 lg:text-3xl`}
+        >
           {receipts.length}
         </span>
-        <div className="ml-auto flex items-center text-[24px] font-medium">
-          <span className="mr-2 rounded-full border-2 border-[#f6f930] p-2 px-10 py-1">
+        <div className="ml-auto flex items-center text-xs md:text-lg lg:text-2xl font-medium">
+          <span className="mr-2 rounded-full border-2 border-[#f6f930] p-2 px-5 lg:px-10 py-1">
             Oct
           </span>
-          <span className="rounded-full border-2 border-[#f6f930] p-2 px-10 py-1">
+          <span className="rounded-full border-2 border-[#f6f930] p-2 px-5 lg:px-10 py-1">
             2024
           </span>
         </div>
       </h2>
-      <div className="sm:h-[300px]md:h-[580px] h-[450px] overflow-auto lg:h-[620px]">
+      <div className="sm:h-[300px] md:h-[580px] h-[450px] overflow-auto lg:h-[620px]">
         <table className="w-full table-auto">
           <thead>
             <tr className="sm:text-md relative text-xs md:text-lg lg:text-xl">
@@ -65,7 +69,7 @@ export default function Orders({
                 onClick={() => order.id !== -1 && onOrderSelect(order.id)}
               >
                 <td className="py-[1rem] pl-3 text-left text-[#f6f930] sm:pl-6 lg:py-7 lg:pl-10">
-                  {order.id !== -1 ? order.id : "---"}
+                  {order.id !== -1 ? `#${order.id.toString().padStart(4, '0')}` : "---"}
                 </td>
                 <td className="py-[1rem] text-left text-[#c4c4c4] lg:py-7">
                   {order.id !== -1

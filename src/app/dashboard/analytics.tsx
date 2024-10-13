@@ -12,8 +12,13 @@ type Receipt = InferSelectModel<typeof receipts>;
 const Analytics = ({ receipts }: { receipts: Receipt[] }) => { 
   const [activeTab, setActiveTab] = useState('Orders');
   const [chartData, setChartData] = useState<ChartData<'pie'> | null>(null);
+  const [salesGrowth, setSalesGrowth] = useState(0);
+  const [totalRevenue, setTotalRevenue] = useState(0);
 
   useEffect(() => {
+    setSalesGrowth(Math.floor(Math.random() * 10) + 1);
+    setTotalRevenue(Math.floor(Math.random() * (20000 - 3000 + 1)) + 3000);
+
     if (activeTab === 'Completion') {
       const statusCounts = receipts.reduce<Record<string, number>>((acc, receipt) => {
         const status = receipt.status ?? 'Unknown';
@@ -69,12 +74,13 @@ const Analytics = ({ receipts }: { receipts: Receipt[] }) => {
       </div>
       
       {activeTab === 'Orders' ? (
-
         <div className="grid grid-cols-2 gap-4">
           <div className="col-span-1 bg-[#484848] h-[100px] lg:h-[150px] rounded-lg p-4 hover:border-[#FFFFFF] hover:border text-center flex flex-col justify-center">
             <div className="flex items-center justify-center mb-2">
               <span className="text-white lg:text-2xl pr-2">$</span>
-              <span className="text-[#e3e300] text-lg sm:text-2xl md:text-2xl lg:text-3xl font-semibold">23822.19</span>
+              <span className="text-[#e3e300] text-lg sm:text-2xl md:text-2xl lg:text-3xl font-semibold">
+                {totalRevenue.toFixed(2)}
+              </span>
             </div>
             <div className="text-gray-400 text-lg sm:text-2xl md:text-2xl lg:text-3xl">Total Revenue</div>
           </div>
@@ -85,7 +91,7 @@ const Analytics = ({ receipts }: { receipts: Receipt[] }) => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
               </span>
-              <span className="text-[#e3e300] text-lg sm:text-2xl md:text-2xl lg:text-3xlfont-semibold">{receipts.length}</span>
+              <span className="text-[#e3e300] text-lg sm:text-2xl md:text-2xl lg:text-3xl font-semibold">{receipts.length}</span>
             </div>
             <div className="text-gray-400 text-lg sm:text-2xl md:text-2xl lg:text-3xl text-center">Total Orders</div>
           </div>
@@ -93,14 +99,13 @@ const Analytics = ({ receipts }: { receipts: Receipt[] }) => {
             <div className="flex items-center justify-between">
               <span className="text-gray-400 pl-2 text-lg sm:text-2xl md:text-2xl lg:text-3xl">Sales Growth:</span>
               <div className="md:p-4">
-                <span className="text-[#e3e300] text-lg sm:text-2xl md:text-2xl lg:text-3xl font-semibold">+9.8%</span>
+                <span className="text-[#e3e300] text-lg sm:text-2xl md:text-2xl lg:text-3xl font-semibold">+{salesGrowth}%</span>
                 <span className="text-green-500 text-lg sm:text-2xl md:text-2xl lg:text-3xl pl-2">↗️</span>
                 <span className="text-gray-400 text-lg sm:text-2xl md:text-2xl lg:text-3xl ml-2">(Sep-Oct)</span>
               </div>
             </div>
           </div>
         </div>
-
       ) : (
         <div className="w-full h-[250px] flex justify-center items-center">
           {chartData ? (

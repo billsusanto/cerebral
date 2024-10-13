@@ -26,7 +26,7 @@ export default function OrderInfo({
         <h2 className="text-base font-semibold sm:text-lg md:text-xl lg:text-2xl">
           Order info:{" "}
           <span className="font-light text-[#f6f930] underline">
-            #{orderId ?? "N/A"}
+            {orderId ? `#${orderId.toString().padStart(4, '0')}` : "N/A"}
           </span>
         </h2>
         <p className="text-base font-light sm:text-lg md:text-xl lg:text-2xl">

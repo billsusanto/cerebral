@@ -6,7 +6,6 @@ import DashboardClient from "./dashboardClient";
 
 export default async function DashboardPage() {
   const receipts = await getAllReceipts();
-  console.log(receipts);
 
   return (
     <>
