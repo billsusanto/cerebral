@@ -99,8 +99,11 @@ export default function OrderInfo({
                 </div>
               </div>
             </div>
-            <h1 className="pt-6 font-normal">
-              Total: <span className="pl-2 font-extralight text-base sm:text-md md:text-lg lg:text-xl">${randomTotal}</span>
+            <h1 className="pt-4 font-normal">
+              {receipt?.status === "FLAGGED" ? "Additional Data" : "Total"}:{" "}
+              <span className="font-extralight text-base sm:text-md md:text-lg lg:text-xl">
+                {receipt?.status === "FLAGGED" ? receipt.additionalData : `$${randomTotal}`}
+              </span>
             </h1>
             <h1 className="pt-6">
               Status:{" "}
