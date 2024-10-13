@@ -4,6 +4,7 @@ import { useUser } from "@clerk/nextjs";
 import { createUser } from "~/actions/user";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export default function SetupPage() {
   const { user } = useUser();
@@ -27,12 +28,16 @@ export default function SetupPage() {
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    await createUser({
+    const createdUser = await createUser({
       ...formData,
       email: user?.emailAddresses[0]?.emailAddress ?? "",
     });
+    if (!createdUser) {
+      toast.error("Unable to create user");
+      return;
+    }
 
-    router.push("/dashboard");
+    router.push(`/connect/${createdUser.id}`);
   }
 
   return (
