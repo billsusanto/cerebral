@@ -40,30 +40,29 @@ const OrderInfo: React.FC<OrderInfoProps> = ({ receipts, orderId }) => {
             </span>
           </h1>
           <div className="w-[220px] rounded-lg bg-[#484848] p-3 shadow-xl">
-            <div className="max-h-[200px] overflow-y-auto">
+            <div className="h-[200px] overflow-y-auto">
               <table className="w-full">
                 <thead className="sticky top-0 bg-[#484848]">
                   <tr className="text-[22px]">
-                    <th className="pb-2 text-center font-normal">Item</th>
+                    <th className="pb-2 text-left font-normal">Item</th>
                     <th className="pb-2 text-center font-normal">Quantity</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {receipt.productDescription
-                    ?.split(", ")
-                    .map((item, index) => {
-                      const [name, quantity] = item.split(":");
-                      return (
-                        <tr key={index} className="text-[18px]">
-                          <td className="py-3 text-center font-light">
-                            {name}
-                          </td>
-                          <td className="py-3 text-center font-light">
-                            {quantity}
-                          </td>
-                        </tr>
-                      );
-                    })}
+                  {Array(3).fill(null).map((_, rowIndex) => {
+                    const item = receipt.productDescription?.split(", ")[rowIndex];
+                    const [name, quantity] = item ? item.split(":") : ["---", "---"];
+                    return (
+                      <tr key={rowIndex} className="text-[18px]">
+                        <td className="py-3 text-left font-light">
+                          {name}
+                        </td>
+                        <td className="py-3 text-center font-light">
+                          {quantity}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>

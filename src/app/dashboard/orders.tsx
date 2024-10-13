@@ -10,12 +10,19 @@ interface OrdersProps {
 }
 
 const Orders: React.FC<OrdersProps> = ({ receipts, onOrderSelect }) => {
+  const displayReceipts = Array(7).fill(null).map((_, index) => receipts[index] || {
+    id: -1,
+    purchase_date: new Date(0),
+    buyer: '---',
+    status: '---'
+  });
+
   return (
-    <div className="min-w-[60%] rounded-2xl border-2 border-[#484848] bg-[#2f2f2f] p-3 text-white shadow-xl">
+    <div className="min-w-[60%] rounded-2xl border-2 border-[#717171] bg-[#2f2f2f] p-3 text-white shadow-xl">
       <h2 className="flex items-center p-10 pb-12 text-[48px] font-semibold">
         Orders
         <span className="ml-5 inline-flex items-center rounded-3xl bg-[#f6f930] px-3 py-2 text-[20px] font-semibold text-black">
-          100
+          {receipts.length}
         </span>
       </h2>
       <div className="max-h-[720px] overflow-auto">
@@ -37,17 +44,17 @@ const Orders: React.FC<OrdersProps> = ({ receipts, onOrderSelect }) => {
             </tr>
           </thead>
           <tbody>
-            {receipts.map((order) => (
+            {displayReceipts.map((order, index) => (
               <tr
-                key={order.id}
-                className="overflow-hidden text-xl cursor-pointer hover:bg-[#5a5a5a]"
-                onClick={() => onOrderSelect(order.id)}
+                key={order.id !== -1 ? order.id : `empty-${index}`}
+                className={`overflow-hidden text-xl ${order.id !== -1 ? 'cursor-pointer hover:bg-[#5a5a5a]' : ''}`}
+                onClick={() => order.id !== -1 && onOrderSelect(order.id)}
               >
                 <td className="py-8 pl-10 text-left text-[#f6f930]">
-                  {order.id}
+                  {order.id !== -1 ? order.id : '---'}
                 </td>
                 <td className="py-8 text-left text-[#c4c4c4]">
-                  {order.purchase_date.toLocaleDateString()}
+                  {order.id !== -1 ? order.purchase_date.toLocaleDateString() : '---'}
                 </td>
                 <td className="py-8 text-left font-extralight">{order.buyer}</td>
                 <td className="py-8 text-left">{order.status}</td>
