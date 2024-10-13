@@ -4,12 +4,13 @@ import React from "react";
 
 type Receipt = InferSelectModel<typeof receipts>;
 
-type OrderInfoProps = {
+export default function ({
+  receipts,
+  orderId,
+}: {
   receipts: Receipt[];
   orderId: number | undefined;
-};
-
-const OrderInfo: React.FC<OrderInfoProps> = ({ receipts, orderId }) => {
+}) {
   const receipt = receipts.find((r) => r.id === orderId) ?? receipts[0];
   if (!receipt) return <></>;
   return (
@@ -17,14 +18,14 @@ const OrderInfo: React.FC<OrderInfoProps> = ({ receipts, orderId }) => {
       <div className="mb-4 flex items-center justify-between">
         <h2 className="text-[42px] font-semibold">
           Order info:{" "}
-          <span className="font-light text-[#f6f930] underline">
+          <span className="font-light text-primary underline">
             #{orderId ?? "N/A"}
           </span>
         </h2>
         <p className="text-[24px] font-light">
           Date:
           <span className="pl-4 text-[24px] font-light text-[#c4c4c4]">
-            {receipt?.purchase_date.toLocaleDateString()}
+            {receipt?.purchaseDate.toLocaleDateString()}
           </span>
         </p>
       </div>
@@ -49,20 +50,23 @@ const OrderInfo: React.FC<OrderInfoProps> = ({ receipts, orderId }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {Array(3).fill(null).map((_, rowIndex) => {
-                    const item = receipt.productDescription?.split(", ")[rowIndex];
-                    const [name, quantity] = item ? item.split(":") : ["---", "---"];
-                    return (
-                      <tr key={rowIndex} className="text-[18px]">
-                        <td className="py-3 text-left font-light">
-                          {name}
-                        </td>
-                        <td className="py-3 text-center font-light">
-                          {quantity}
-                        </td>
-                      </tr>
-                    );
-                  })}
+                  {Array(3)
+                    .fill(null)
+                    .map((_, rowIndex) => {
+                      const item =
+                        receipt.productDescription?.split(", ")[rowIndex];
+                      const [name, quantity] = item
+                        ? item.split(":")
+                        : ["---", "---"];
+                      return (
+                        <tr key={rowIndex} className="text-[18px]">
+                          <td className="py-3 text-left font-light">{name}</td>
+                          <td className="py-3 text-center font-light">
+                            {quantity}
+                          </td>
+                        </tr>
+                      );
+                    })}
                 </tbody>
               </table>
             </div>
@@ -72,7 +76,7 @@ const OrderInfo: React.FC<OrderInfoProps> = ({ receipts, orderId }) => {
           <p className="">
             Phone Number:{" "}
             <span className="pl-4 font-extralight underline">
-              {receipt?.phone_num}
+              {receipt?.phoneNumber}
             </span>
           </p>
           <div className="w-full">
@@ -100,6 +104,4 @@ const OrderInfo: React.FC<OrderInfoProps> = ({ receipts, orderId }) => {
       </div>
     </div>
   );
-};
-
-export default OrderInfo;
+}

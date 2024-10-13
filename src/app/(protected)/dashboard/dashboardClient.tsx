@@ -10,10 +10,6 @@ import Orders from "./orders";
 
 type Receipt = InferSelectModel<typeof receipts>;
 
-type OrderInfoProps = {
-  orderId: number | null;
-};
-
 export default function DashboardClient({ receipts }: { receipts: Receipt[] }) {
   const [selectedOrderId, setSelectedOrderId] = useState<number | undefined>(
     receipts?.[0]?.id,
