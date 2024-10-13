@@ -43,7 +43,7 @@ export const receipts = pgTable(
       .notNull(),
     buyer: varchar("buyer", { length: 256 }),
     productDescription: text("product_description"),
-    phone_num: varchar("phone_num", { length: 15 }),
+    phoneNumber: varchar("phone_number", { length: 15 }),
     additional_data: text("additional_data"),
     address: varchar("address", { length: 256 }),
     purchase_date: timestamp("purchase_date", { withTimezone: true })

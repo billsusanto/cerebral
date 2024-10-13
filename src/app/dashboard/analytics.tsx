@@ -74,9 +74,9 @@ const Analytics = ({ receipts }: { receipts: Receipt[] }) => {
           <div className="col-span-1 bg-[#484848] h-[100px] lg:h-[150px] rounded-lg p-4 hover:border-[#FFFFFF] hover:border text-center flex flex-col justify-center">
             <div className="flex items-center justify-center mb-2">
               <span className="text-white lg:text-2xl pr-2">$</span>
-              <span className="text-[#e3e300] lg:text-3xl font-semibold">23822.19</span>
+              <span className="text-[#e3e300] text-lg sm:text-2xl md:text-2xl lg:text-3xl font-semibold">23822.19</span>
             </div>
-            <div className="text-gray-400 lg:text-xl">Total Revenue</div>
+            <div className="text-gray-400 text-lg sm:text-2xl md:text-2xl lg:text-3xl">Total Revenue</div>
           </div>
           <div className="col-span-1 bg-[#484848] rounded-lg p-4 hover:border-[#FFFFFF] hover:border flex flex-col justify-center h-[100px] lg:h-[150px]">
             <div className="flex items-center justify-center mb-2">
@@ -85,17 +85,17 @@ const Analytics = ({ receipts }: { receipts: Receipt[] }) => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
               </span>
-              <span className="text-[#e3e300] text-2xl lg:text-4xl font-semibold">{receipts.length}</span>
+              <span className="text-[#e3e300] text-lg sm:text-2xl md:text-2xl lg:text-3xlfont-semibold">{receipts.length}</span>
             </div>
-            <div className="text-gray-400 text-sm sm:text-lg lg:text-xl text-center">Total Orders</div>
+            <div className="text-gray-400 text-lg sm:text-2xl md:text-2xl lg:text-3xl text-center">Total Orders</div>
           </div>
           <div className="col-span-2 bg-[#484848] rounded-lg lg:p-5 hover:border-[#FFFFFF] hover:border">
             <div className="flex items-center justify-between">
-              <span className="text-gray-400 text-sm pl-1 lg:text-xl">Sales Growth:</span>
-              <div>
-                <span className="text-[#e3e300] text-lg sm:text-2xl lg:text-3xl font-semibold">+9.8%</span>
-                <span className="text-green-500 ml-2">↗️</span>
-                <span className="text-gray-400 text-sm pr-1 lg:text-xl ml-2">(Sep-Oct)</span>
+              <span className="text-gray-400 pl-2 text-lg sm:text-2xl md:text-2xl lg:text-3xl">Sales Growth:</span>
+              <div className="md:p-4">
+                <span className="text-[#e3e300] text-lg sm:text-2xl md:text-2xl lg:text-3xl font-semibold">+9.8%</span>
+                <span className="text-green-500 text-lg sm:text-2xl md:text-2xl lg:text-3xl pl-2">↗️</span>
+                <span className="text-gray-400 text-lg sm:text-2xl md:text-2xl lg:text-3xl ml-2">(Sep-Oct)</span>
               </div>
             </div>
           </div>

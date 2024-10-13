@@ -4,31 +4,39 @@ import React from "react";
 
 type Receipt = InferSelectModel<typeof receipts>;
 
-type OrderInfoProps = {
+export default function OrderInfo({
+  receipts,
+  orderId,
+}: {
   receipts: Receipt[];
   orderId: number | undefined;
-};
-
-const OrderInfo: React.FC<OrderInfoProps> = ({ receipts, orderId }) => {
+}) {
   const receipt = receipts.find((r) => r.id === orderId) ?? receipts[0];
   if (!receipt) return <></>;
+
+  const randomTotal = React.useMemo(() => {
+    const seed = receipt.id || 0;
+    const random = Math.sin(seed) * 10000;
+    return (Math.floor((random - Math.floor(random)) * (300 - 20 + 1) + 20)).toFixed(2);
+  }, [receipt.id]);
+
   return (
     <div className="container min-h-[15rem] rounded-2xl border-2 border-[#575757] bg-[#2f2f2f] p-3 px-3 text-white sm:p-6 sm:px-6 lg:min-h-[20rem] lg:p-10 lg:px-12">
       <div className="mb-4 flex items-center justify-between">
-        <h2 className="text-[0.8rem] font-semibold sm:text-[0.8rem] md:text-[1.3rem] lg:text-[1.8rem]">
+        <h2 className="text-base font-semibold sm:text-lg md:text-xl lg:text-2xl">
           Order info:{" "}
           <span className="font-light text-[#f6f930] underline">
             #{orderId ?? "N/A"}
           </span>
         </h2>
-        <p className="text-[0.8rem] font-light sm:text-[0.8rem] md:text-[1.3rem] lg:text-[1.5rem]">
+        <p className="text-base font-light sm:text-lg md:text-xl lg:text-2xl">
           Date:
-          <span className="pl-0 text-[0.8rem] font-light text-[#c4c4c4] sm:pl-0 sm:text-[0.8rem] md:pl-1 md:text-[1.3rem] lg:pl-2">
+          <span className="pl-0 font-light text-[#c4c4c4] sm:pl-2 text-base sm:text-md md:text-lg lg:text-xl">
             {receipt?.purchase_date.toLocaleDateString()}
           </span>
         </p>
       </div>
-      <div className="flex justify-between pb-4 text-[0.8rem] sm:text-[0.8rem] md:text-[1.0rem] lg:text-[1.5rem]">
+      <div className="flex justify-between pb-4 text-base sm:text-lg md:text-xl lg:text-2xl">
         <div className="md:w-[40%] lg:w-[50%]">
           <h1 className="pb-4">
             Name:{" "}
@@ -43,9 +51,9 @@ const OrderInfo: React.FC<OrderInfoProps> = ({ receipts, orderId }) => {
             <div className="overflow-y-auto md:h-[150px] lg:h-[200px]">
               <table className="w-full">
                 <thead className="sticky top-0 bg-[#484848]">
-                  <tr className="text-[0.8rem] sm:text-[0.8rem] md:text-[1.0rem] lg:text-[1.5rem]">
-                    <th className="pb-2 text-left font-normal">Item</th>
-                    <th className="pb-2 text-center font-normal">Quantity</th>
+                  <tr className="text-base sm:text-lg md:text-xl lg:text-2xl">
+                    <th className="pb-2 lg:pl-3 text-left font-normal w-1/2">Item</th>
+                    <th className="pb-2 text-center font-normal w-1/2">Qty</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -62,7 +70,7 @@ const OrderInfo: React.FC<OrderInfoProps> = ({ receipts, orderId }) => {
                           key={rowIndex}
                           className="md:text-[13px] lg:text-[18px]"
                         >
-                          <td className="py-3 text-left font-light">{name}</td>
+                          <td className="py-3 lg:pl-3 text-left font-light">{name}</td>
                           <td className="py-3 text-center font-light">
                             {quantity}
                           </td>
@@ -74,29 +82,53 @@ const OrderInfo: React.FC<OrderInfoProps> = ({ receipts, orderId }) => {
             </div>
           </div>
         </div>
-        <div className="text-[0.8rem] sm:text-[0.8rem] md:w-[50%] md:text-[1.0rem] lg:w-[55%] lg:pl-5 lg:text-[1.3rem]">
-          <p className="font-extralight underline text-center">{receipt?.phone_num}</p>
+        <div className="text-base sm:text-lg md:w-[50%] md:text-xl lg:w-[55%] lg:pl-5 lg:text-2xl">
+          <span>
+            Phone Number: <br />
+          </span>
+          <p className="font-extralight underline text-base sm:text-md md:text-lg lg:text-xl">
+            {receipt?.phoneNumber}
+          </p>
           <div className="w-full">
-            <div className="flex flex-row pt-6">
-              <div className="text-[0.8rem] font-normal sm:text-[0.8rem] md:pr-1 md:text-[1.0rem] lg:pr-2 lg:text-[1.3rem]">
-                Address:
-              </div>
-              <div className="text-left font-extralight md:text-[0.9rem] lg:text-[1.0rem]">
+            <div className="pt-6">
+              Address:
+              <div className="text-left font-extralight md:text-lg lg:text-xl">
                 <div>{receipt?.address?.split(",")[0]}</div>
                 <div className="text-left">
                   {receipt?.address?.split(",").slice(1).join(",").trim()}
                 </div>
               </div>
             </div>
-            <h1 className="pt-6 text-[0.8rem] font-normal sm:text-[0.8rem] md:text-[1.0rem] lg:text-[1.3rem]">
-              Total:{" "}
-              <span className="pl-2 text-[0.8rem] font-extralight sm:text-[0.8rem] md:text-[1.0rem] lg:text-[1.3rem]">
-                $238.19
-              </span>
+            <h1 className="pt-6 font-normal">
+              Total: <span className="pl-2 font-extralight text-base sm:text-md md:text-lg lg:text-xl">${randomTotal}</span>
             </h1>
             <h1 className="pt-6">
               Status:{" "}
-              <span className="pl-2 text-[0.8rem] font-extralight sm:text-[0.8rem] md:text-[1.0rem] lg:text-[1.3rem]">
+              <span
+                className="rounded-full md:px-3 md:py-1 lg:px-5 lg:py-2 text-base sm:text-md md:text-md lg:text-xl"
+                style={{
+                  backgroundColor:
+                    receipt?.status === "COMPLETED"
+                      ? "#426142"
+                      : receipt?.status === "INPROGRESS"
+                        ? "#615D42"
+                        : receipt?.status === "CANCELLED"
+                          ? "#614242"
+                          : receipt?.status === "FLAGGED"
+                            ? "#6d6d6d"
+                            : "#2f2f2f",
+                  color:
+                    receipt?.status === "COMPLETED"
+                      ? "#94FF8E"
+                      : receipt?.status === "INPROGRESS"
+                        ? "#FBFF8E"
+                        : receipt?.status === "CANCELLED"
+                          ? "#FF8E8E"
+                          : receipt?.status === "FLAGGED"
+                            ? "#FFFFFF"
+                            : "#FFFFFF",
+                }}
+              >
                 {receipt?.status}
               </span>
             </h1>
@@ -105,6 +137,4 @@ const OrderInfo: React.FC<OrderInfoProps> = ({ receipts, orderId }) => {
       </div>
     </div>
   );
-};
-
-export default OrderInfo;
+}
