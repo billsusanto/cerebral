@@ -1,6 +1,5 @@
 import { getAllReceipts } from "~/actions/receipts";
 import React from "react";
-import { Navbar } from "~/components/navbar";
 
 import DashboardClient from "./dashboardClient";
 
@@ -9,7 +8,6 @@ export default async function DashboardPage() {
 
   return (
     <>
-      <Navbar />
       <DashboardClient receipts={receipts} />
     </>
   );

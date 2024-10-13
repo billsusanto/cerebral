@@ -6,7 +6,6 @@ export function Navbar() {
       <div className="flex items-center gap-x-16">
         <Link href="/" className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#f6f930]">Ind<span className="text-[#ffffff]">order</span>.</Link>
         <Link href="/dashboard" className="text-sm md:text-xl lg:text-xl text-[#f6f930] font-semibold">Dashboard</Link>
-        <Link href="/settings" className="text-sm md:text-xl lg:text-xl text-white font-semibold">Settings</Link>
       </div>
     </div>
   );
