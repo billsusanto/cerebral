@@ -4,25 +4,36 @@
 import { sql } from "drizzle-orm";
 import {
   index,
+  pgEnum,
   pgTable,
   serial,
-  timestamp,
-  varchar,
   text,
+  timestamp,
+  uuid,
+  varchar,
 } from "drizzle-orm/pg-core";
 
-/**
- * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
- * database instance for multiple projects.
- *
- * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
- */
+export const listenerStatusEnum = pgEnum("listener_status", [
+  "INITIALIZING",
+  "RUNNING",
+  "EXITED",
+]);
 
-export const posts = pgTable(
-  "post",
+export const users = pgTable(
+  "users",
   {
-    id: serial("id").primaryKey(),
-    name: varchar("name", { length: 256 }),
+    id: uuid("id")
+      .default(sql`gen_random_uuid()`)
+      .primaryKey()
+      .notNull(),
+    businessName: text("business_name"),
+    name: text("name"),
+    email: text("email"),
+    phoneNumber: varchar("phone_number", { length: 15 }),
+    businessDescription: text("business_description"),
+    welcomeMessage: text("welcome_message"),
+    listenerStatus:
+      listenerStatusEnum("listener_status").default("INITIALIZING"),
     createdAt: timestamp("created_at", { withTimezone: true })
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
@@ -30,10 +41,17 @@ export const posts = pgTable(
       () => new Date(),
     ),
   },
-  (example) => ({
-    nameIndex: index("name_idx").on(example.name),
+  (table) => ({
+    idIdx: index("user_id_idx").on(table.id),
   }),
 );
+
+export const statusEnum = pgEnum("status", [
+  "INPROGRESS",
+  "COMPLETED",
+  "FLAGGED",
+  "CANCELLED",
+]);
 
 export const receipts = pgTable(
   "receipts",
@@ -41,28 +59,26 @@ export const receipts = pgTable(
     id: serial("id")
       .primaryKey()
       .notNull(),
+    userId: uuid("user_id")
+      .references(() => users.id, { onDelete: "cascade", onUpdate: "cascade" })
+      .notNull(),
     buyer: varchar("buyer", { length: 256 }),
-    productDescription: text("product_description"),
     phoneNumber: varchar("phone_number", { length: 15 }),
-    additional_data: text("additional_data"),
     address: varchar("address", { length: 256 }),
-    purchase_date: timestamp("purchase_date", { withTimezone: true })
+    purchaseDate: timestamp("purchase_date", { withTimezone: true })
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
+    productDescription: text("product_description"),
+    additionalData: text("additional_data"),
+    status: statusEnum("status").default("INPROGRESS"),
     createdAt: timestamp("created_at", { withTimezone: true })
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
     updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
       () => new Date(),
     ),
-    status: varchar("status", { length: 256 })
-      .default('in progress'),
- 
- 
   },
-  (example) => ({
-    idIdx: index("receipt_buyer_idx").on(example.buyer),
+  (table) => ({
+    idIdx: index("receipt_buyer_idx").on(table.buyer),
   }),
- );
- 
- 
+);

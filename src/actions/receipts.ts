@@ -1,4 +1,5 @@
 "use server";
+
 import { db } from "~/server/db";
 import { receipts } from "~/server/db/schema";
 import { eq } from "drizzle-orm";
@@ -8,7 +9,7 @@ export async function getAllReceipts() {
   try {
     return await db.select().from(receipts);
   } catch (error) {
-    console.error('Error fetching all receipts:', error);
+    console.error("Error fetching all receipts:", error);
     throw error;
   }
 }

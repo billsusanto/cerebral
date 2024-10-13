@@ -17,7 +17,7 @@ export default function Orders({
       (_, index) =>
         receipts[index] || {
           id: -1,
-          purchase_date: new Date(0),
+          purchaseDate: new Date(0),
           buyer: "---",
           status: "---",
         },
@@ -73,7 +73,7 @@ export default function Orders({
                 </td>
                 <td className="py-[1rem] text-left text-[#c4c4c4] lg:py-7">
                   {order.id !== -1
-                    ? order.purchase_date.toLocaleDateString()
+                    ? order.purchaseDate.toLocaleDateString()
                     : "---"}
                 </td>
                 <td className="py-[1rem] text-left font-extralight">

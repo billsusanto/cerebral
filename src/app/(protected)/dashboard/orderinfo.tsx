@@ -32,7 +32,7 @@ export default function OrderInfo({
         <p className="text-base font-light sm:text-lg md:text-xl lg:text-2xl">
           Date:
           <span className="pl-0 font-light text-[#c4c4c4] sm:pl-2 text-base sm:text-md md:text-lg lg:text-xl">
-            {receipt?.purchase_date.toLocaleDateString()}
+            {receipt?.purchaseDate.toLocaleDateString()}
           </span>
         </p>
       </div>
