@@ -1,11 +1,9 @@
 "use server";
 
 export async function connectDevice({ userId }: { userId: string }) {
-  const BACKEND_URL = "http://localhost:3000";
+  const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:3000";
 
   try {
-    return sampleQRCode;
-
     const response = await fetch(`${BACKEND_URL}/connect/${userId}`, {
       method: "GET",
       headers: {
